@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Place on prefabs of enemies to make them move
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
@@ -22,12 +23,15 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
+    //collider at front of enemy triggers this event when it bumps into a wall 
+    //and turns the enemy around
     private void OnTriggerExit2D(Collider2D other) 
     {
         moveSpeed = -moveSpeed;
         FlipEnemyFacing();
     }
 
+    //Changes the direction of the enemy
     void FlipEnemyFacing() 
     {
         enemyTransform.localScale = new Vector2(-Mathf.Sign(myRigidbody.velocity.x),1f);

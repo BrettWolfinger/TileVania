@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Moves in the direction of direction keys
     void OnMove(InputValue value)
     {
         if(isAlive){
@@ -53,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Listens for message from unity input system to jump when player is on the ground and button is pressed
     void OnJump(InputValue value)
     {   
         if(isAlive) {
@@ -63,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Listens for message from unity input system to fire bullets
     void OnFire(InputValue value)
     {
         if(isAlive) {
@@ -71,6 +74,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Give player velocity each frame depending on inputs and updates animator accordingly
+    //Reflection: no real need for this to be running every single frame in update
     void Run()
     {
         Vector2 playerVelocity = new Vector2 (moveInput.x * playerSpeed, myRigidbody.velocity.y);
@@ -79,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         myAnimator.SetBool("isRunning", CheckHorzMovement());
     }
 
+    //Gives the player sprite either -1 or 1 local scale depending on direction of horizontal movement
+    //So that the sprite is always facing the direction of movement
     void FlipSprite() 
     {
 
@@ -88,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Chceks if player is climbing ladder and changes gravity appropriately. Allows player to move up and
+    //down at climb speed.
     void ClimbLadder() 
     {
         if(myFeetCollider.IsTouchingLayers(climbingLayer))
@@ -103,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //If player collides with any of the dangers than update the animator and process the death
     void Die()
     {
         if(myBodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards")))
@@ -114,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Helpers to check for movement in both horizontal and vertical directions
     private bool CheckHorzMovement()
     {
         return Mathf.Abs(myRigidbody.velocity.x) > Mathf.Epsilon;

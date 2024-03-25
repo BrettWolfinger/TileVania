@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Placed on a game session manager prefab. A lot of this could be done by observing events
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerLives = 3;
-    // Start is called before the first frame update
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] int score = 0;
@@ -35,6 +35,7 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    //Called when a player needs to die
     public void ProcessPlayerDeath()
     {
         if (playerLives > 1)
@@ -47,12 +48,14 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    //function used on coin pickup to add points
     public void AddToScore(int pointsToAdd)
     {
         score += pointsToAdd;
         scoreText.text = score.ToString();
     }
 
+    //reduce lives and reload scene
     void TakeLife()
     {
         playerLives--;
@@ -62,6 +65,7 @@ public class GameSession : MonoBehaviour
 
     }
 
+    //Called on player running out of lives. Resets game state
     void ResetGameSession()
     {
         FindObjectOfType<ScenePersist>().ResetScenePersist();

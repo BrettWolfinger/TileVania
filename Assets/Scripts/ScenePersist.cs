@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Singleton pattern script placed on scene persitant prefab to keep it from being destroyed
 public class ScenePersist : MonoBehaviour
 {
     void Awake()
